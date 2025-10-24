@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">Добавить новую книгу</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'add_book' %}">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Название книги</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Автор</label>
+                        <input type="text" class="form-control" id="author" name="author" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="year" class="form-label">Год издания</label>
+                        <input type="number" class="form-control" id="year" name="year"
+                               min="1800" max="2030" value="2024" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="janr" class="form-label">Жанр</label>
+                        <select class="form-control" id="janr" name="janr" required>
+                            <option value="">Выберите жанр...</option>
+                            <option value="Роман">Роман</option>
+                            <option value="Фантастика">Фантастика</option>
+                            <option value="Детектив">Детектив</option>
+                            <option value="Фэнтези">Фэнтези</option>
+                            <option value="Классика">Классика</option>
+                            <option value="Научная литература">Научная литература</option>
+                            <option value="Биография">Биография</option>
+                            <option value="Поэзия">Поэзия</option>
+                            <option value="Драма">Драма</option>
+                            <option value="Комедия">Комедия</option>
+                            <option value="Приключения">Приключения</option>
+                            <option value="Учебная литература">Учебная литература</option>
+                            <option value="Другое">Другое</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Сохранить в:</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="save_to"
+                                       id="save_db" value="db" checked>
+                                <label class="form-check-label" for="save_db">
+                                    Базу данных
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="save_to"
+                                       id="save_file" value="file">
+                                <label class="form-check-label" for="save_file">
+                                    JSON файл
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Добавить книгу</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">Быстрый доступ</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{% url 'book_list' %}?source=db" class="btn btn-outline-primary w-100 mb-2">
+                            Просмотреть книги из БД
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{% url 'book_list' %}?source=files" class="btn btn-outline-success w-100 mb-2">
+                            Просмотреть книги из файлов
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'books/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">✏️ Редактировать книгу</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Название книги</label>
+                        <input type="text" class="form-control" id="title" name="title"
+                               value="{{ book.title }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Автор</label>
+                        <input type="text" class="form-control" id="author" name="author"
+                               value="{{ book.author }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="year" class="form-label">Год издания</label>
+                        <input type="number" class="form-control" id="year" name="year"
+                               value="{{ book.year }}" min="1800" max="2030" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="janr" class="form-label">Жанр</label>
+                        <select class="form-control" id="janr" name="janr" required>
+                            <option value="">Выберите жанр...</option>
+                            <option value="Роман" {% if book.janr == "Роман" %}selected{% endif %}>Роман</option>
+                            <option value="Фантастика" {% if book.janr == "Фантастика" %}selected{% endif %}>Фантастика</option>
+                            <option value="Детектив" {% if book.janr == "Детектив" %}selected{% endif %}>Детектив</option>
+                            <option value="Фэнтези" {% if book.janr == "Фэнтези" %}selected{% endif %}>Фэнтези</option>
+                            <option value="Классика" {% if book.janr == "Классика" %}selected{% endif %}>Классика</option>
+                            <option value="Научная литература" {% if book.janr == "Научная литература" %}selected{% endif %}>Научная литература</option>
+                            <option value="Биография" {% if book.janr == "Биография" %}selected{% endif %}>Биография</option>
+                            <option value="Поэзия" {% if book.janr == "Поэзия" %}selected{% endif %}>Поэзия</option>
+                            <option value="Драма" {% if book.janr == "Драма" %}selected{% endif %}>Драма</option>
+                            <option value="Комедия" {% if book.janr == "Комедия" %}selected{% endif %}>Комедия</option>
+                            <option value="Приключения" {% if book.janr == "Приключения" %}selected{% endif %}>Приключения</option>
+                            <option value="Учебная литература" {% if book.janr == "Учебная литература" %}selected{% endif %}>Учебная литература</option>
+                            <option value="Другое" {% if book.janr == "Другое" %}selected{% endif %}>Другое</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">💾 Сохранить изменения</button>
+                        <a href="{% url 'book_list' %}?source=db" class="btn btn-secondary">❌ Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">📊 Информация о книге</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>ID записи:</strong> {{ book.id }}</p>
+                <p><strong>Дата создания:</strong> {{ book.created_at|date:"d.m.Y H:i" }}</p>
+                <p><strong>Последнее изменение:</strong> {% now "d.m.Y H:i" %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
