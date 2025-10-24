@@ -82,7 +82,7 @@ ROOT_URLCONF = 'book_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': ['C://Users//User//Desktop//2 курс.1 семестр//Разработка//books_4//book_project//templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
