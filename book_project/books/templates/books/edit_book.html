@@ -2,10 +2,10 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-8 mx-auto">
+    <div class="col-md-6 mx-auto">
         <div class="card">
             <div class="card-header">
-                <h4 class="mb-0">✏️ Редактировать книгу</h4>
+                <h4 class="mb-0">Редактировать книгу</h4>
             </div>
             <div class="card-body">
                 <form method="post">
@@ -50,21 +50,10 @@
                     </div>
 
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">💾 Сохранить изменения</button>
-                        <a href="{% url 'book_list' %}?source=db" class="btn btn-secondary">❌ Отмена</a>
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                        <a href="{% url 'book_list' %}" class="btn btn-secondary">Отмена</a>
                     </div>
                 </form>
-            </div>
-        </div>
-
-        <div class="card mt-4">
-            <div class="card-header">
-                <h5 class="mb-0">📊 Информация о книге</h5>
-            </div>
-            <div class="card-body">
-                <p><strong>ID записи:</strong> {{ book.id }}</p>
-                <p><strong>Дата создания:</strong> {{ book.created_at|date:"d.m.Y H:i" }}</p>
-                <p><strong>Последнее изменение:</strong> {% now "d.m.Y H:i" %}</p>
             </div>
         </div>
     </div>

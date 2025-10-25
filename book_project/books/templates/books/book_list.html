@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-md-8">
                 <input type="text" class="form-control" id="searchInput"
-                       placeholder="Поиск по названию, автору или жанру...">
+                       placeholder="Поиск по названию или автору...">
                 <div id="searchResults" class="search-results d-none"></div>
             </div>
             <div class="col-md-4">
@@ -59,6 +59,7 @@
                             <th>Жанр</th>
                             {% if source == 'files' %}
                                 <th>Файл</th>
+                                <th>Действия</th>
                             {% else %}
                                 <th>Действия</th>
                             {% endif %}
@@ -73,8 +74,8 @@
                                 <td>{{ book.year }}</td>
                                 <td>{{ book.janr }}</td>
                                 <td>
-                                    <a href="{% url 'edit_book' book.id %}" class="btn btn-sm btn-warning">Редактировать</a>
-                                    <a href="{% url 'delete_book' book.id %}" class="btn btn-sm btn-danger">Удалить</a>
+                                    <a href="{% url 'edit_book' book.id %}" class="btn btn-warning btn-sm">Редактировать</a>
+                                    <a href="{% url 'delete_book' book.id %}" class="btn btn-danger btn-sm">Удалить</a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -87,6 +88,9 @@
                                 <td>{{ book.janr }}</td>
                                 <td>
                                     <small class="text-muted">{{ book.source_file }}</small>
+                                </td>
+                                <td>
+                                    <a href="{% url 'view_json_file' book.source_file %}" class="btn btn-info btn-sm">Просмотреть файл</a>
                                 </td>
                             </tr>
                             {% endfor %}

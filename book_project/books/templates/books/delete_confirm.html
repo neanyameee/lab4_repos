@@ -5,11 +5,11 @@
     <div class="col-md-6 mx-auto">
         <div class="card">
             <div class="card-header bg-danger text-white">
-                <h4 class="mb-0">🗑️ Подтверждение удаления</h4>
+                <h4 class="mb-0">Подтверждение удаления</h4>
             </div>
             <div class="card-body">
                 <div class="alert alert-warning">
-                    <h5>⚠️ Внимание!</h5>
+                    <h5>Внимание!</h5>
                     <p>Вы собираетесь удалить книгу из базы данных. Это действие нельзя отменить.</p>
                 </div>
 
@@ -27,8 +27,8 @@
                 <form method="post">
                     {% csrf_token %}
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-danger">🗑️ Да, удалить книгу</button>
-                        <a href="{% url 'book_list' %}?source=db" class="btn btn-secondary">❌ Отмена</a>
+                        <button type="submit" class="btn btn-danger">Удалить книгу</button>
+                        <a href="{% url 'book_list' %}" class="btn btn-secondary">Отмена</a>
                     </div>
                 </form>
             </div>

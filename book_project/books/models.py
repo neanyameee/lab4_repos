@@ -19,11 +19,3 @@ class Book(models.Model):
         unique_together = ['title', 'author', 'year', 'janr']
         verbose_name = 'Книга'
         verbose_name_plural = 'Книги'
-
-    def __str__(self):
-        return f"{self.title} - {self.author} ({self.year})"
-
-    def clean(self):
-        if Book.objects.filter(title=self.title, author=self.author, year=self.year, janr=self.janr).exclude(
-                pk=self.pk).exists():
-            raise ValidationError('Такая книга уже существует в базе данных')

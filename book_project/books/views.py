@@ -239,3 +239,30 @@ def export_books(request):
 
     messages.success(request, f'Экспортировано {len(books_data)} книг в файл {filename}')
     return redirect('book_list')
+
+
+def view_json_file(request, filename):
+    """Просмотр содержимого JSON файла"""
+    filepath = os.path.join(settings.MEDIA_ROOT, 'json_files', filename)
+
+    if not os.path.exists(filepath):
+        messages.error(request, 'Файл не найден')
+        return redirect('book_list')
+
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Парсим JSON для красивого отображения
+        data = json.loads(content)
+        pretty_content = json.dumps(data, ensure_ascii=False, indent=2)
+
+        return render(request, 'books/view_json.html', {
+            'filename': filename,
+            'content': pretty_content,
+            'book_count': len(data) if isinstance(data, list) else 1
+        })
+
+    except Exception as e:
+        messages.error(request, f'Ошибка чтения файла: {str(e)}')
+        return redirect('book_list')

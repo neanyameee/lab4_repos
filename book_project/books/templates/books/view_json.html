@@ -1,0 +1,34 @@
+{% extends 'books/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Просмотр JSON файла: {{ filename }}</h2>
+    <a href="{% url 'book_list' %}?source=files" class="btn btn-secondary">← Назад к файлам</a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Информация о файле</h5>
+                <p><strong>Количество книг:</strong> {{ book_count }}</p>
+                <p><strong>Размер файла:</strong> {{ content|length }} символов</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Содержимое файла</h5>
+    </div>
+    <div class="card-body">
+        <pre class="bg-light p-3 border rounded" style="max-height: 600px; overflow: auto;"><code>{{ content }}</code></pre>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'book_list' %}?source=files" class="btn btn-primary">Вернуться к файлам</a>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary">На главную</a>
+</div>
+{% endblock %}
