@@ -38,7 +38,7 @@ except FileNotFoundError:
 SECRET_KEY = config.get('SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config.get('DEBUG', False)
+DEBUG = False
 
 # Настройка разрешенных хостов для безопасности
 ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', ['localhost', '127.0.0.1'])
