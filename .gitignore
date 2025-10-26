@@ -1,0 +1,29 @@
+venv/
+
+# Конфиденциальные файлы конфигурации
+config.json
+.env
+.local_settings.py
+
+# База данных
+*.sqlite3
+*.db
+protected_database.db
+
+# Логи
+*.log
+security.log
+
+# Файлы операционной системы
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+staticfiles/
+media/
