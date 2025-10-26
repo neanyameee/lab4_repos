@@ -26,27 +26,13 @@
                     <div class="mb-3">
                         <label for="year" class="form-label">Год издания</label>
                         <input type="number" class="form-control" id="year" name="year"
-                               value="{{ book.year }}" min="1800" max="2030" required>
+                               value="{{ book.year }}" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="janr" class="form-label">Жанр</label>
-                        <select class="form-control" id="janr" name="janr" required>
-                            <option value="">Выберите жанр...</option>
-                            <option value="Роман" {% if book.janr == "Роман" %}selected{% endif %}>Роман</option>
-                            <option value="Фантастика" {% if book.janr == "Фантастика" %}selected{% endif %}>Фантастика</option>
-                            <option value="Детектив" {% if book.janr == "Детектив" %}selected{% endif %}>Детектив</option>
-                            <option value="Фэнтези" {% if book.janr == "Фэнтези" %}selected{% endif %}>Фэнтези</option>
-                            <option value="Классика" {% if book.janr == "Классика" %}selected{% endif %}>Классика</option>
-                            <option value="Научная литература" {% if book.janr == "Научная литература" %}selected{% endif %}>Научная литература</option>
-                            <option value="Биография" {% if book.janr == "Биография" %}selected{% endif %}>Биография</option>
-                            <option value="Поэзия" {% if book.janr == "Поэзия" %}selected{% endif %}>Поэзия</option>
-                            <option value="Драма" {% if book.janr == "Драма" %}selected{% endif %}>Драма</option>
-                            <option value="Комедия" {% if book.janr == "Комедия" %}selected{% endif %}>Комедия</option>
-                            <option value="Приключения" {% if book.janr == "Приключения" %}selected{% endif %}>Приключения</option>
-                            <option value="Учебная литература" {% if book.janr == "Учебная литература" %}selected{% endif %}>Учебная литература</option>
-                            <option value="Другое" {% if book.janr == "Другое" %}selected{% endif %}>Другое</option>
-                        </select>
+                        <input class="form-control" id="janr" name="janr"
+                               value="{{book.janr }}" required>
                     </div>
 
                     <div class="d-grid gap-2">

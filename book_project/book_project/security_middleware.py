@@ -10,7 +10,7 @@ class SecurityMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # Блокируем подозрительные User-Agent
+        # Блокировка подозрительных User-Agent
         user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
         suspicious_agents = ['sqlmap', 'nikto', 'metasploit', 'nmap']
 
@@ -18,7 +18,7 @@ class SecurityMiddleware:
             logger.warning(f'Blocked suspicious user agent: {user_agent}')
             return HttpResponseForbidden('Access denied')
 
-        # Логируем попытки доступа к чувствительным URLs
+        # Логировка попыткок доступа к чувствительным URLs
         if any(path in request.path for path in ['/admin', '/php', '/wp-admin']):
             logger.info(f'Access attempt to sensitive path: {request.path}')
 

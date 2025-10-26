@@ -9,11 +9,9 @@ import os
 import uuid
 from django.conf import settings
 
-
 def home(request):
     """Главная страница с формой добавления книги"""
     return render(request, 'books/home.html')
-
 
 def add_book(request):
     """Добавление книги в БД или файл"""
@@ -243,7 +241,8 @@ def export_books(request):
 
 def view_json_file(request, filename):
     """Просмотр содержимого JSON файла"""
-    filepath = os.path.join(settings.MEDIA_ROOT, 'json_files', filename)
+    files_dir = os.path.join(settings.MEDIA_ROOT, 'json_files')
+    filepath = os.path.join(files_dir, filename)
 
     if not os.path.exists(filepath):
         messages.error(request, 'Файл не найден')
@@ -257,10 +256,17 @@ def view_json_file(request, filename):
         data = json.loads(content)
         pretty_content = json.dumps(data, ensure_ascii=False, indent=2)
 
+        # Получаем информацию о файле
+        file_size = os.path.getsize(filepath)
+        file_modified = os.path.getmtime(filepath)
+
         return render(request, 'books/view_json.html', {
             'filename': filename,
             'content': pretty_content,
-            'book_count': len(data) if isinstance(data, list) else 1
+            'book_count': len(data) if isinstance(data, list) else 1,
+            'file_size': file_size,
+            'file_modified': file_modified,
+            'file_data': data if isinstance(data, list) else [data]
         })
 
     except Exception as e:
