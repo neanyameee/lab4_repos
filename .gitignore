@@ -27,3 +27,13 @@ __pycache__/
 
 staticfiles/
 media/
+static/
+
+.idea
+*.pot
+db.sqlite3
+.vscode/
+.idea/
+
+# Docker
+.docker/

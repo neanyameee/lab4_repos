@@ -15,6 +15,7 @@ from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 import json
 from dotenv import load_dotenv
+import dj_database_url
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,11 +42,27 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 # Настройки базы данных
-
-DATABASES = { 'default': {
-    'ENGINE': os.getenv('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
-    'NAME': os.getenv('DATABASE_NAME', BASE_DIR / 'db.sqlite3')
-}}
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL:
+    # Используем PostgreSQL в production/Docker
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+else:
+    # Используем SQLite для локальной разработки
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': config.get('DATABASE_NAME', BASE_DIR / 'db.sqlite3'),
+            'OPTIONS': {
+                'timeout': 20,
+            }
+        }
+    }
 
 # Безопасные настройки для production
 #if not DEBUG:
