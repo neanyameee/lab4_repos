@@ -3,6 +3,7 @@ venv/
 # Конфиденциальные файлы конфигурации
 config.json
 .env
+*.env
 .local_settings.py
 
 # База данных
@@ -37,3 +38,4 @@ db.sqlite3
 
 # Docker
 .docker/
+
