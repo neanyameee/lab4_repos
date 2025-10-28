@@ -31,16 +31,26 @@ venv\Scripts\activate     # Windows
 4. Установить зависимости:
 pip install -r requirements.txt
 
-5. Создайте бзу данных
+5. Создайте базу данных
 createdb book_project_db
 
 6. Создайте миграции
 python manage.py migrate
 python manage.py runserver
 
+7. Запустите контейнеры
+docker-compose up --build
+
+8. Перенесите данные
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py collectstatic
+
+9. Мигрируйте данные из SQLite в PostgreSQL
+Создайте и выполните скрипт миграции данных.
 
 7. Запустить сервер
 python manage.py runserver
 
 8. Открыть в браузере:
 http://127.0.0.1:8000/
+
