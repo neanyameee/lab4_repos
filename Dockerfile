@@ -1,31 +1,23 @@
+#шаблон создания образа Django-приложения
 FROM python:3.9-slim
 
-# Set environment variables
+# Переменные окружения
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Set work directory
+# Рабочая директория
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    postgresql-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
+# Зависимости
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy project
+# Копирование проекта
 COPY . .
 
-# Make entrypoint script executable
-RUN chmod +x /app/entrypoint.sh
-
-# Expose port
+# Открываем порт
 EXPOSE 8000
 
-# Run entrypoint script
-ENTRYPOINT ["/app/entrypoint.sh"]
+# Запуск сервера разработки
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

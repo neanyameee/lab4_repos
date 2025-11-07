@@ -1,28 +1,34 @@
-version: '3.8'
+#автоматизация запуска всего приложения одной командой
 
 services:
   web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    build: . #образ строится из Dockerfile в текущей директории
+    command: python manage.py runserver 0.0.0.0:8000 #запускает Django сервер на всех интерфейсах порта 8000
     volumes:
-      - .:/app
+      - db_data:/app/db.sqlite3 # Сохраняет БД
+      - static_data:/app/staticfiles # Сохраняет статические файлы
+      - media_data:/app/media # Сохраняет медиа файлы
     ports:
-      - "8000:8000"
-    environment:
-      - DATABASE_URL=postgresql://postgres:password@db:5432/book_project_db
+      - "8000:8000" #пробрасывает порт 8000 из контейнера на хост-машину
+    environment: #переменные окружения
+      - DATABASE_URL=postgresql://postgres:password@localhost:5432/book_project_db
     depends_on:
-      - db
+      - db #зависит от сервиса db и ждет его запуска
     env_file:
-      - .env
+      - .env #доп. переменные
 
   db:
-    image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    environment:
+    image: postgres:latest #исп офиц образ PostgreSQL 13
+    volumes: #сохраняет данные БД в том postgres_data
+#      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql
+    environment: #переменные окружения: настраивает БД, пользователя и пароль
       - POSTGRES_DB=book_project_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
 
-volumes:
+volumes: #постоянное хранилище данных для PostgreSQL
   postgres_data:
+  db_data:
+  static_data:
+  media_data:

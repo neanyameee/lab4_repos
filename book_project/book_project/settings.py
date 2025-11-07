@@ -43,26 +43,18 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 # Настройки базы данных
 DATABASE_URL = os.getenv('DATABASE_URL')
-if DATABASE_URL:
-    # Используем PostgreSQL в production/Docker
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
+# Используем PostgreSQL в production/Docker
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.environ.get('DB_HOST', 'db'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
+        'NAME': os.environ.get('DB_NAME', 'book_project_db'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'password'),
     }
-else:
-    # Используем SQLite для локальной разработки
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': config.get('DATABASE_NAME', BASE_DIR / 'db.sqlite3'),
-            'OPTIONS': {
-                'timeout': 20,
-            }
-        }
-    }
+}
+
 
 # Безопасные настройки для production
 #?????

@@ -1,7 +1,9 @@
+#стандартный Django-скрипт для управления проектом
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), 'book_project'))
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'book_project.settings')
